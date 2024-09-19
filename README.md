@@ -64,11 +64,13 @@ The overall workflow is:
 1. define your logging format.
 2. define your output_func.
 3. register logger.
-4. use `monitor` when programming and simply `logger.log(key, value)`.
+4. Insert `monitor` and `logger.log` into your code to inspect what is happening. 
 
 Monitor will return a default logger if no logger is registered. And this logger will do nothing.
 
-If you want to disable a logger, it's quite easy: `tl.remove_register(name)`.
+If you want to disable a logger, it's quite easy: `tl.remove_logger(name)`.
+
+WitLog is designed for **inspect existing code**, not intended for production-level real-time logging. This narrows the scope of application of Witlog, but makes it a sharp knife in the research field.
 
 ### Main Concepts
 
