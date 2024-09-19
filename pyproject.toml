@@ -25,6 +25,13 @@ keywords = [
 
 [tool.setuptools_scm]
 
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
 [project.urls]
 homepage = "https://github.com/Tomorrowdawn/WitLog"
 repository = "https://github.com/Tomorrowdawn/WitLog"
