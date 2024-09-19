@@ -1,3 +1,11 @@
+<div align="center">
+  <img src="./blog/logo.svg" alt="Logo" width="320" />
+</div>
+
+
+![PyPI - Version](https://img.shields.io/pypi/v/witlog) ![PyPI - Wheel](https://img.shields.io/pypi/wheel/witlog) ![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FTomorrowdawn%2FWitLog%2Fmain%2Fpyproject.toml)
+
+
 ## Features
 
 - 🎈 Lightweight: No heavy dependencies, plug and play!
@@ -153,4 +161,12 @@ But if you want to extract content associating to duplicate names, the default i
 1. No expression in `log(key, value)`. Expressions would be always executed(even if you remove the register), and that might cause unexpected overhead. The best practice is simple string for key and only object for value. A common mistake is f-string. If you really want to combine something, we recommend you to implement a custom logger.
 2. Use `with wl.monitor(name)` instead of `get_logger`. The latter one would work and reduce some coding effort indeed, but `with` create a block of code. It's more readable, and allowing "truly zero-overhead". Though skipping `with` is rejected in [PEP-343](https://peps.python.org/pep-0343/), there is will some space for hacking code stack. It's dangerous so will not be integrated into witlog, but maybe we can achieve this safely some day 😉
 
-Hope witlog simplify your code and project 🌹
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=Tomorrowdawn/WitLog&type=Date)](https://star-history.com/#Tomorrowdawn/WitLog&Date)
+
+### Contributors
+
+![](https://contrib.rocks/image?repo=Tomorrowdawn/WitLog)
+
+Hope WitLog make your life easier 🌹
