@@ -72,7 +72,7 @@ class StaticLogger(AbstractLogger):
     This logger always assume you log as the order you defined and no branches.
     """
 
-    def __init__(self, template, output_func):
+    def __init__(self, template:list, output_func):
         self.template = template
         self._block = LogBlock(template)
         self.output_func = output_func

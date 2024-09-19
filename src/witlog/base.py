@@ -14,6 +14,10 @@ def register_logger(name, logger = None):
         loggers[name] = logger
     return logger
 
+def remove_logger(name):
+    if name in loggers:
+        del loggers[name]
+
 def get_logger(name):
     if name not in loggers:
         return AbstractLogger()
