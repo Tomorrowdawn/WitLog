@@ -1,9 +1,12 @@
 <div align="center">
-  <img src="./blog/logo.svg" alt="Logo" width="320" />
+  <img src="./blog/logo.png" alt="Logo" width="320" />
 </div>
 
+<div align="center">
 
 ![PyPI - Version](https://img.shields.io/pypi/v/witlog) ![PyPI - Wheel](https://img.shields.io/pypi/wheel/witlog) ![Python Version from PEP 621 TOML](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FTomorrowdawn%2FWitLog%2Fmain%2Fpyproject.toml)
+
+</div>
 
 
 ## Features
@@ -68,7 +71,7 @@ The overall workflow is:
 
 Monitor will return a default logger if no logger is registered. And this logger will do nothing.
 
-If you want to disable a logger, it's quite easy: `tl.remove_logger(name)`.
+If you want to disable a logger, it's quite easy: `wl.remove_logger(name)`.
 
 WitLog is designed for **inspect existing code**, not intended for production-level real-time logging. This narrows the scope of application of Witlog, but makes it a sharp knife in the research field.
 
