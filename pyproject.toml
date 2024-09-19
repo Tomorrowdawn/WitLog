@@ -2,17 +2,11 @@
 requires = ["setuptools >= 64", "setuptools_scm>=8"]
 build-backend = "setuptools.build_meta"
 
-
 [project]
+
 name = "witlog"
 dynamic = ["version"]
-# more missing
-
-[tool.setuptools_scm]
-
-[project]
 requires-python = ">= 3.8"
-
 authors = [
     {name = "tomorrowdawn", email = "tomorrowdawn@foxmail.com"}
 ]
@@ -28,6 +22,8 @@ keywords = [
     "zero-overhead",
     "research",
 ]
+
+[tool.setuptools_scm]
 
 [project.urls]
 homepage = "https://github.com/Tomorrowdawn/WitLog"
