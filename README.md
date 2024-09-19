@@ -111,7 +111,7 @@ with wl.monitor("SCORES") as logger:
     logger.log('a', a)
 ```
 
-This means you don't need to care about other code affection when developing.
+This means you don't need to care about other code affect when developing.
 
 In implementation, *Block* is corresponding to `LogBlock`, *Message* is corresponding to `LogMsg`. Both have a property `content`, including the actual object(s) they store. `LogMsg` has a `name` but `LogBlock` is anonymous.
 
@@ -132,7 +132,7 @@ Say you've got a `LogBlock` defined by:
 and you want extract 5th `inner_x`:
 
 ```py
-print(block[1][5].content)
+print(block[1][4].content)
 ```
 
 If you want to get the content associating to a *unique* name, such as `final_flag`, it's easier and more readable:
@@ -142,6 +142,11 @@ print(block['final_flag'].content)
 ```
 
 But if you want to extract content associating to duplicate names, the default indexing would only return the first match. This is not recommended.
+
+### FAQ
+
+- Q: I just want to log when something is wrong. So it's not a perfect static loop. How should I handle this?
+  - A: Divide your logger to serval small loggers. Ensure for each small logger, they are handling static loops. Worth noting, a trivial logger `logger = StaticLogger(['single'])` can handle any logging pattern of `single`, because it outputs **immediately** after receiving one logging message. So in theory, you can use many loggers for any patterns. In practice, you need to balance the coding effort and logging pattern.
 
 ### Convention
 
