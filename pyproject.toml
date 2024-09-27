@@ -5,8 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 
 name = "witlog"
-dynamic = ["version"]
-requires-python = ">= 3.8"
+dynamic = ["version", "dependencies", "optional-dependencies"]
+requires-python = ">= 3.10"
 authors = [
     {name = "tomorrowdawn", email = "tomorrowdawn@foxmail.com"}
 ]
@@ -23,11 +23,16 @@ keywords = [
     "research",
 ]
 
+
 [tool.setuptools_scm]
 
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+optional-dependencies = {full = { file = ["requirements-full.txt"] }}
 
 [tool.setuptools.packages.find]
 where = ["src"]
