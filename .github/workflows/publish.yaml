@@ -12,36 +12,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # fetch changelogs
 
-      # Extract Python version from pyproject.toml
       - name: Extract Python version
         id: python_version
         run: |
-          python_version=$(grep -E '^python = ' pyproject.toml | sed -E "s/^python = '(.*)'\$/\1/")
+          python_version=$(grep -E '^requires-python = ' pyproject.toml | sed -E 's/^requires-python = ">=\s*(.*)"\$/\1/')
           echo "PYTHON_VERSION=$python_version" >> $GITHUB_ENV
 
-      # Set up Python environment using the version from pyproject.toml
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ env.PYTHON_VERSION }}  # 读取环境变量中的 Python 版本
+          python-version: ${{ env.PYTHON_VERSION }}
 
-      # Install dependencies from requirements.txt
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-                    python -m pip install --upgrade pip
           pip install setuptools setuptools_scm wheel build twine
           pip install -r requirements.txt
+          pip install -r requirements-full.txt
 
-      # Build the package
-      - name: Build the package
+      - name: Build package
         run: python -m build --sdist --wheel .
 
-      # Publish to PyPI
+      - name: Generate changelog
+        id: changelog
+        uses: metcalfc/changelog-generator@v4.0.1
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Publish to PyPI
         env:
           TWINE_USERNAME: __token__
@@ -49,10 +51,12 @@ jobs:
         run: |
           python -m twine upload dist/*
 
-      # Create a GitHub Release
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          body: 'Automatic release based on tag: ${{ github.ref }}'
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
+          files: |
+            dist/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./blog/logo.png" alt="Logo" width="320" />
+  <img src="./blog/logo.png" alt="Logo" width="360" />
 </div>
 
 <div align="center">
@@ -19,6 +19,8 @@
 ## Installation
 
 Simply `pip install witlog`
+
+If you want to support your machine learning project, try `pip install witlog[full]`. Full version would introduce a lot of "heavy" dependencies. 
 
 ## Usage
 
@@ -75,7 +77,9 @@ If you want to disable a logger, it's quite easy: `wl.remove_logger(name)`.
 
 WitLog is designed for **inspect existing code**, not intended for production-level real-time logging. This narrows the scope of application of Witlog, but makes it a sharp knife in the research field.
 
-### Main Concepts
+### Logging
+
+#### Main Concepts
 
 Witlog considers code as many loops(including nested loop), and hence logs can be structured as *blocks*. Each block corresponds to a loop in code.
 
@@ -128,7 +132,7 @@ This means you don't need to care about other code affect when developing.
 
 In implementation, *Block* is corresponding to `LogBlock`, *Message* is corresponding to `LogMsg`. Both have a property `content`, including the actual object(s) they store. `LogMsg` has a `name` but `LogBlock` is anonymous.
 
-### Post-processing
+#### Post-processing
 
 Witlog's biggest advantage lies in its simple post-processing. You can easily extract the data you need from the structured `LogBlock`, rather than manually writing cumbersome analysis scripts.
 
@@ -155,6 +159,23 @@ print(block['final_flag'].content)
 ```
 
 But if you want to extract content associating to duplicate names, the default indexing would only return the first match. This is not recommended.
+
+### Timing
+
+Now `witlog.timing`(shorthand as `wt`) provides two approaches to measure time and organize them:
+
+1. Use decorator `@wt.timethis(name)` on definition of functions. We recommend writing it as the outermost decorator. 
+2. Use contextmanger `@wt.timing(name)`. 
+
+All records will be aggregated into a list `records`. You can access it by `wt.get_records()`. This function would return a list of `(name, duration)`, sorted by end timing. 
+
+The advantages of the timing module compared to cprofiler are:
+
+1. It can easily attach hook functions. See `wt.set_config(config)`.
+2. It takes CUDA synchronization into account(requires installation of full version).
+3. It allows assigning different names to the same function call, thus distinguishing between them.
+
+This last point is particularly useful when analyzing frequently called low-level modules, as these modules usually can't be made faster and can only be optimized in terms of access patterns. Distinguishing names helps you discover different access patterns.
 
 ### FAQ
 
